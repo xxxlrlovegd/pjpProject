@@ -53,15 +53,24 @@
         </div>
       </i-Col>
       <i-Col span="6" style="text-align:right">
-        <Select v-model="model" style="width: 96px;margin-right:2px">
+        <Select v-model="model" style="width: 96px;margin-right:2px" @on-change="qkSelectEvent">
           <Option v-for="item in selectList" :value="item.name" :key="item.id">{{ item.name }}</Option>
         </Select>
-        <Input suffix="ios-search" placeholder="请输入" style="width: auto" class="inputStyle" />
+        <Input
+          icon="ios-search"
+          placeholder="请输入"
+          style="width: auto"
+          class="inputStyle"
+          v-model="qkData"
+          @on-enter="seachEvent"
+          @on-click="seachEvent"
+        />
       </i-Col>
     </Row>
   </div>
 </template>
 <script>
+import APIservice from '../../service/stock.service.js'
 export default {
   data() {
     return {
@@ -74,14 +83,32 @@ export default {
       selectList: [
         { id: 1, name: '交易hash' },
         { id: 2, name: '区块高度' },
-        { id: 3, name: '区块hash' },
+        // { id: 3, name: '区块hash' },
       ],
+      qkData: '',
     }
   },
   mounted() {},
   methods: {
     selectMenu(path) {
       this.$router.push(path)
+    },
+    qkSelectEvent(value) {
+      console.log(value)
+      this.model = value
+    },
+    async seachEvent() {
+      if (!this.qkData) return
+      console.log(this.qkData, '-----------', this.model)
+      if (this.model == '交易hash') {
+        let res = await APIservice.getBlockByNumber(this.qkData)
+        console.log(res)
+        // if (res.msg == '成功') {
+        // } else {
+        // }
+      } else {
+        console.log('这是区块高度数据管理，嘎嘎嘎~')
+      }
     },
   },
 }

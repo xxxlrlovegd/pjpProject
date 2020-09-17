@@ -60,14 +60,14 @@
       <i-Col :span="12">
         <div class="title">区块交易列表</div>
         <Card :bordered="false" :padding="0">
-          <Table :columns="columns" :data="data" ref="table" style="height: 320px"></Table>
-          <Page :total="100" show-elevator class="pagination" />
+          <Table :columns="columns" :data="data" ref="table" style="max-height: 380px"></Table>
         </Card>
       </i-Col>
     </Row>
   </div>
 </template>
 <script>
+import axios from 'axios'
 import * as echarts from 'echarts'
 export default {
   data() {
@@ -153,6 +153,7 @@ export default {
   mounted() {
     // this.tableHeight = window.innerHeight - this.$refs.table.$el.offsetTop - 300;
     this.myEcharts()
+    this.test()
   },
   methods: {
     myEcharts() {
@@ -218,6 +219,25 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option)
+    },
+    test() {
+      alert('---------')
+      const token = localStorage.getItem('Authorization')
+      console.log('000000000', token)
+      axios({
+        method: 'post',
+        url: '/api/tracebaas/listHash',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          accessToken: `${token}`,
+        },
+      })
+        .then(function (response) {
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     },
   },
 }

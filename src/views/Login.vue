@@ -83,7 +83,7 @@
                 <i-Input
                   prefix="ios-contact"
                   type="text"
-                  v-model="formInline.username"
+                  v-model="formInline.loginName"
                   placeholder="请输入账号/邮箱"
                 ></i-Input>
               </FormItem>
@@ -123,7 +123,8 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import LoginService from '../service/login.service.js'
 import * as CryptoJS from 'crypto-js'
 import yz1Img from '../assets/img/login/yz1.jpg'
 import yz2Img from '../assets/img/login/yz2.jpg'
@@ -144,11 +145,11 @@ export default {
         { id: 5, name: '高考录取通知书系统' },
       ],
       formInline: {
-        username: '',
+        loginName: '',
         password: '',
       },
       ruleInline: {
-        username: [
+        loginName: [
           { required: true, message: '账号不能为空', trigger: 'blur' },
         ],
         password: [
@@ -166,7 +167,7 @@ export default {
         imgs: [yz1Img, yz2Img, yz3Img, yz4Img],
         flag: false,
       },
-      infoList: false,
+      infoList: true,
       isCheckSeccuss: true,
     }
   },
@@ -185,22 +186,39 @@ export default {
       })
       return encrypted.toString()
     },
+
+    async login() {
+      alert('test')
+      const res = await LoginService.login(this.formInline)
+      if (res.code === 0) {
+        const authorization = res.obj.accessToken
+        sessionStorage.setItem('Authorization', authorization)
+        // 增加跳转页面逻辑判断
+      } else {
+        this.formInline = {
+          loginName: '',
+          password: '',
+        }
+        this.$message.error(res.msg)
+      }
+    },
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid && this.verify.flag) {
           console.log('--------', this.formInline)
-          // this.formInline.password = this.encrypt(this.formInline.password)
-          // sessionStorage.setItem('UserInfo', this.formInline)
-          axios
-            .post('http://192.168.43.110:8081/login', this.formInline)
+
+          this.$http
+            .post('/api/login', this.formInline)
             .then(function (response) {
               console.log(response.data)
+              const authorization = response.data.msg
+              console.log(authorization)
+              localStorage.setItem('Authorization', authorization)
             })
             .catch(function (error) {
               console.log(error)
             })
-
-          // return
+          // this.login()
           if (this.isCheckSeccuss) {
             //调用后台返回一个值
             if (this.infoList) {

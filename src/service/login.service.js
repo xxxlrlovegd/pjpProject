@@ -6,15 +6,11 @@ let LoginService = {
   },
   //获取登录信息
   async login(params) {
-    let res = await Http.post('/login', params)
-    return res;
-  },
-  async fetchUserInfo() {
-    let res = await Http.get('/loginweb/user/about')
+    let res = await Http.post('/api/login', params)
     return res;
   },
   async updatePassword() {
-    let res = await Http.get('/loginweb/user/updatepassword', params)
+    let res = await Http.get('/api/updatepassword')
     return res;
   },
 }
