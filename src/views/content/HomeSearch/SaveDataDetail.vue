@@ -194,6 +194,20 @@ export default {
     console.log('------', Object.keys(this.czData).length === 0)
     this.flag = Object.keys(this.czData).length === 0
   },
-  methods: {},
+  methods: {
+    async getListData() {
+      if (this.$route.query.model == '交易hash') {
+        let res = await APIservice.getBlockByNumber(this.qkData)
+        console.log(res)
+        if (res.msg === 0) {
+          console.log(res.data)
+        } else {
+          this.$message.error(res.msg)
+        }
+      } else {
+        console.log('这是区块高度数据管理，嘎嘎嘎~')
+      }
+    },
+  },
 }
 </script>

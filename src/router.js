@@ -42,7 +42,7 @@ export default new Router({
         },
 
         {
-            path: '/personInfo',
+            path: '/personInfo/:type',
             component: resolve => require(['./views/content/UserInfo/PersonInfo'], resolve),
             meta: {
                 needLogin: false
@@ -58,21 +58,28 @@ export default new Router({
                     path: '/homePage',
                     component: resolve => require(['./views/homePage'], resolve),
                     meta: {
-                        needLogin: false
+                        needLogin: true
                     }
                 },
                 {
                     path: '/information',
                     component: resolve => require(['./views/content/UserInfo/Information'], resolve),
                     meta: {
-                        needLogin: false
+                        needLogin: true
                     }
                 },
                 {
                     path: '/resetPassword',
                     component: resolve => require(['./views/content/UserInfo/ResetPossword'], resolve),
                     meta: {
-                        needLogin: false
+                        needLogin: true
+                    }
+                },
+                {
+                    path: '/saveDataDetail',
+                    component: resolve => require(['./views/content/HomeSearch/SaveDataDetail'], resolve),
+                    meta: {
+                        needLogin: true
                     }
                 },
                 {
@@ -82,32 +89,6 @@ export default new Router({
                         needLogin: false
                     }
                 },
-                // 接口管理模块
-                // {
-                //     path: '/developerInfo',
-                //     name: 'developerInfo',
-                //     component: resolve => require(['views/content/interfaceAccess/DeveloperInfo.vue'], resolve)
-                // }, {
-                //     path: '/applyForDeveloper',
-                //     name: 'applyForDeveloper',
-                //     component: resolve => require(['views/content/interfaceAccess/developers/ApplyForDeveloper.vue'], resolve)
-                // }, {
-                //     path: '/devInfo',
-                //     name: 'devInfo',
-                //     component: resolve => require(['views/content/interfaceAccess/developers/SuccInfo.vue'], resolve)
-                // }, {
-                //     path: '/modifyInfo',
-                //     name: 'modifyInfo',
-                //     component: resolve => require(['views/content/interfaceAccess/developers/ModifyInfo.vue'], resolve)
-                // }, {
-                //     path: '/applyForInterface',
-                //     component: resolve => require(['views/content/interfaceAccess/ApplyForInterface.vue'], resolve)
-
-                // }, {
-                //     path: '/referenceData',
-                //     component: resolve => require(['views/content/interfaceAccess/reference/ReferenceData.vue'], resolve)
-                // },
-
             ]
         }
     ]

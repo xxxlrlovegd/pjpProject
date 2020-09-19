@@ -11,7 +11,8 @@
   <div class="information">
     <Dropdown @on-click="downMenuEvent">
       <a href="javascript:void(0)">
-        <Icon type="md-person" />11111
+        <Icon type="md-person" />
+        {{username}}
       </a>
       <DropdownMenu slot="list">
         <DropdownItem name="grxx">个人信息</DropdownItem>
@@ -24,7 +25,7 @@
 export default {
   data() {
     return {
-      userInfo: sessionStorage.setItem('UserInfo'),
+      username: JSON.parse(sessionStorage.getItem('UserInfo')).userName,
     }
   },
   methods: {

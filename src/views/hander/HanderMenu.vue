@@ -100,15 +100,13 @@ export default {
     async seachEvent() {
       if (!this.qkData) return
       console.log(this.qkData, '-----------', this.model)
-      if (this.model == '交易hash') {
-        let res = await APIservice.getBlockByNumber(this.qkData)
-        console.log(res)
-        // if (res.msg == '成功') {
-        // } else {
-        // }
-      } else {
-        console.log('这是区块高度数据管理，嘎嘎嘎~')
-      }
+      this.$router.push({
+        path: '/saveDataDetail',
+        query: {
+          number: this.qkData,
+          model: this.model,
+        },
+      })
     },
   },
 }

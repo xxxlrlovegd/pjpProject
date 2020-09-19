@@ -8,9 +8,9 @@ class Http {
         })
         this.axiosInstance.interceptors.request.use((config) => {
             if (sessionStorage.getItem('Authorization')) {
-                config.headers.common.Authorization = `Bearer ${sessionStorage.getItem('Authorization')}`
+                config.headers.common.accessToken = `${sessionStorage.getItem('Authorization')}`
             }
-            // config.headers.common['Content-Type'] = 'application/json';
+            config.headers['Content-Type'] = 'application/json;charset=UTF-8';
             return config
         }, error => Promise.reject(error))
         this.axiosInstance.interceptors.response.use((config) => {
@@ -46,7 +46,7 @@ class Http {
      * @returns {Promise<*>}
      */
     async post(url, params) {
-        params = qs ? qs.stringify(params) : params
+        // params = qs ? qs.stringify(params) : params
         const res = await this.axiosInstance.post(url, params)
         return res.data
     }

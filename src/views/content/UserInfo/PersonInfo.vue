@@ -54,7 +54,7 @@
       <Content :style="{padding: '0 50px'}">
         <div style="min-height: 568px;margin:20px 0px;">
           <Card style="width:700px;position: relative;top: 70px;left: 25%;">
-            <div v-if="isLoginType=='gr'">
+            <div v-if="isLoginType==1">
               <Form
                 ref="formInline"
                 :model="formInline"
@@ -182,7 +182,7 @@ export default {
   },
   data() {
     return {
-      isLoginType: 'gr',
+      isLoginType: 1,
       formInline: {
         name: '',
         tel: '',
@@ -242,7 +242,7 @@ export default {
     }
   },
   mounted() {
-    this.isLoginType = 'gr'
+    this.isLoginType = this.$route.params.type
 
     this.formInline = {
       name: '',

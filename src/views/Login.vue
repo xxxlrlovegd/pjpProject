@@ -191,9 +191,28 @@ export default {
       alert('test')
       const res = await LoginService.login(this.formInline)
       if (res.code === 0) {
-        const authorization = res.obj.accessToken
+        const authorization = res.msg
         sessionStorage.setItem('Authorization', authorization)
+        sessionStorage.setItem('userInfo', JSON.stringify(res.data))
         // 增加跳转页面逻辑判断
+        if (res.data.user_status != 2) {
+          //调用后台返回一个值
+          if (res.data.userName || res.data.companyName) {
+            this.$router.push('/homePage')
+          } else {
+            console.log('-------')
+            this.$router.push('/personInfo/' + res.data.userTy pe)
+          }
+        } else {
+          //是否审批通过
+          this.$Modal.info({
+            title: '温馨提示',
+            content: '您的账号未通过认证',
+            onOk: () => {
+              this.$router.push('/login')
+            },
+          })
+        }
       } else {
         this.formInline = {
           loginName: '',
@@ -205,38 +224,7 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid && this.verify.flag) {
-          console.log('--------', this.formInline)
-
-          this.$http
-            .post('/api/login', this.formInline)
-            .then(function (response) {
-              console.log(response.data)
-              const authorization = response.data.msg
-              console.log(authorization)
-              localStorage.setItem('Authorization', authorization)
-            })
-            .catch(function (error) {
-              console.log(error)
-            })
-          // this.login()
-          if (this.isCheckSeccuss) {
-            //调用后台返回一个值
-            if (this.infoList) {
-              this.$router.push('/homePage')
-            } else {
-              console.log('-------')
-              this.$router.push('/personInfo')
-            }
-          } else {
-            //是否审批通过
-            this.$Modal.info({
-              title: '温馨提示',
-              content: '提交成功，请耐心等待审核',
-              onOk: () => {
-                this.$router.push('/login')
-              },
-            })
-          }
+          this.login()
         } else {
           this.$Message.error('Fail!')
         }

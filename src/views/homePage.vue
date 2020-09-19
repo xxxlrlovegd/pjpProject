@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import APIservice from '../service/stock.service.js'
 import * as echarts from 'echarts'
 export default {
   data() {
@@ -99,9 +99,8 @@ export default {
           date: '2020-09-15',
           title: 'asfasd123123',
         },
-
         {
-          id: '8',
+          id: '6',
           date: '2020-09-15',
           title: 'asfasd123123',
         },
@@ -111,7 +110,7 @@ export default {
           title: 'asfasd123123',
         },
         {
-          id: '6',
+          id: '8',
           date: '2020-09-15',
           title: 'asfasd123123',
         },
@@ -153,7 +152,8 @@ export default {
   mounted() {
     // this.tableHeight = window.innerHeight - this.$refs.table.$el.offsetTop - 300;
     this.myEcharts()
-    this.test()
+    this.getOrderData()
+    this.blockList = this.defineDataEvent(this.blockList)
   },
   methods: {
     myEcharts() {
@@ -220,24 +220,51 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option)
     },
-    test() {
-      alert('---------')
-      const token = localStorage.getItem('Authorization')
-      console.log('000000000', token)
-      axios({
-        method: 'post',
-        url: '/api/tracebaas/listHash',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          accessToken: `${token}`,
-        },
-      })
-        .then(function (response) {
-          console.log(response.data)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+    //自定义数据
+    async getBlockQuery() {
+      const res = await APIservice.getBlockQuery()
+      if (res.code === 0) {
+        console.log('自定义数据', res.data)
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    //获取折线信息
+    async getBusinessVolume() {
+      const res = await APIservice.getBusinessVolume()
+      if (res.code === 0) {
+        console.log('折线数据', res.data)
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    //获取表格数据
+    async getOrderData() {
+      const res = await APIservice.getOrderData()
+      if (res.code === 0) {
+        console.log('表格数据', res.data)
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    /**
+     * 数据处理转换成echarts
+     *  @param  {Array} params {String} key
+     *  @return {Array}
+     * */
+    echartDataEvent(params, key = 'name') {
+      let array = params.map((item) => item[key])
+      return array
+    },
+    /**
+     * 自定义数据处理后五个的排序此方法只是针对自定义的数据进行处理
+     * @param {Array} param
+     * @return {Array}
+     */
+    defineDataEvent(param) {
+      var newArr = param.slice(0, 5)
+      var newArrSort = param.slice(5).reverse()
+      return newArr.concat(newArrSort)
     },
   },
 }
