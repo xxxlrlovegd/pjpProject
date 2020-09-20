@@ -62,11 +62,11 @@
 </style>
   <template>
   <div class="layout">
-    <Layout :style="{background:'#F1F6FC'}">
+    <Layout :style="{background:'#F1F6FC',minHeight:'100vh'}">
       <Header>
         <authHeader />
       </Header>
-      <Content :style="{padding: '0 50px'}">
+      <Content :style="{padding: '0 50px',flex:1}">
         <div style="min-height: 568px;margin:20px 0px;">
           <Card style="width:400px;position: relative;top: 35px;left: 58%;">
             <p slot="title">
@@ -201,7 +201,7 @@ export default {
             this.$router.push('/homePage')
           } else {
             console.log('-------')
-            this.$router.push('/personInfo/' + res.data.userTy pe)
+            this.$router.push('/personInfo/' + res.data.userType)
           }
         } else {
           //是否审批通过

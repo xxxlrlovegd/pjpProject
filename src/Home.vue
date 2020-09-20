@@ -3,7 +3,8 @@
   text-align: center;
 }
 .imgStyle {
-  width: 2%;
+  position: relative;
+  top: 2px;
 }
 .ivu-layout-header {
   background: url(./assets/img/icon/headBg.png);

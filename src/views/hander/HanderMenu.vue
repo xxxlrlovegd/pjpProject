@@ -1,42 +1,63 @@
-<style  lang="less">
+<style  lang="less" scoped>
 .ivu-menu-light {
   &:after {
     height: 0px !important;
   }
 }
-.layout-logo {
-  margin: 10px 0;
-  text-align: center;
+.header-text{
+  vertical-align:middle;
 }
-.imgStyle {
-  width: 12%;
-  position: relative;
-  top: 4px;
+.span-cell{
+  display: block;
+  margin-top: -9px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 .ivu-btn-text:hover {
   color: #fff;
   border-bottom: 2px solid #fff;
   border-radius: 0px;
 }
+/deep/.ivu-select-input {
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 24px 0 8px;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    box-sizing: border-box;
+    color: #515a6e;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+}
 </style>
   <template>
   <div>
-    <Row type="flex" align="top">
-      <i-Col span="8" class="layout-logo">
-        <img src="../../assets/img/login/logo.png" alt style="width: 32%;margin: 3px 0px;" />
-        <span
-          style="display: inline-block;border-right: 2px solid #dcdee2;height: 24px;position: relative;top: -6px;left: 8px;"
-        ></span>
-        <span
-          style="position: relative;top: -22px;left: 3%;font-size: 21px;font-weight: bold;"
-        >公&nbsp;共&nbsp;溯&nbsp;源&nbsp;平&nbsp;台</span>
+    <Row>
+      <i-Col span="8">
+        <Row>
+          <i-Col span="12" style="text-align:right;">
+              <img src="../../assets/img/login/logo.png" alt style="margin-top:11px;width:60%;height:80%;" />
+          </i-Col>
+          <i-Col span="1" style="text-align:center;">
+            <Divider type="vertical" style="color:#dcdee2;height:35px;width:3px"/>
+          </i-Col>
+          <i-Col span="11">
+            <div class="header-text">
+                <span
+                      style="font-size: 21px;height:28px" class="span-cell"
+                    >公&nbsp;共&nbsp;溯&nbsp;源&nbsp;平&nbsp;台</span>
 
-        <span
-          style="position: absolute;top: 10%;left: 54%;font-size: 12px;font-weight: bold;"
-        >Blockchain&nbsp;Platform&nbsp;of&nbsp;China&nbsp;Post</span>
+                    <span
+                      style="font-size: 12px;height:30px;" class="span-cell"
+                    >Blockchain&nbsp;Platform&nbsp;of&nbsp;China&nbsp;Post</span>
+            </div>
+          </i-Col>
+        </Row>
       </i-Col>
-
-      <i-Col span="10" class="layout-nav">
+      <i-Col span="8">
         <div
           v-for="(item,index) in menuItem"
           :key="index"
@@ -52,7 +73,7 @@
           >{{item.name}}</Button>
         </div>
       </i-Col>
-      <i-Col span="6" style="text-align:right">
+      <i-Col span="7" style="text-align:right">
         <Select v-model="model" style="width: 96px;margin-right:2px" @on-change="qkSelectEvent">
           <Option v-for="item in selectList" :value="item.name" :key="item.id">{{ item.name }}</Option>
         </Select>

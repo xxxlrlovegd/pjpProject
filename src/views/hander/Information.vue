@@ -33,6 +33,9 @@ export default {
       console.log(name)
       if (name == 'grxx') {
         this.$router.push('/information')
+      }else{
+        sessionStorage.clear();
+        window.location.href='/'
       }
     },
   },

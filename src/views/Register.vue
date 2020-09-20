@@ -47,11 +47,11 @@
 </style>
   <template>
   <div class="register">
-    <Layout :style="{background:'#F1F6FC'}">
+    <Layout :style="{background:'#F1F6FC',minHeight:'100vh'}">
       <Header>
         <authHeader />
       </Header>
-      <Content :style="{padding: '0 50px'}">
+      <Content :style="{padding: '0 50px',flex:1}">
         <div style="min-height: 568px;margin:20px 0px;">
           <Card style="width:700px;position: relative;top: 70px;left: 25%;">
             <Menu
@@ -64,10 +64,6 @@
               <MenuItem name="1" class="menuItem">企业注册</MenuItem>
               <MenuItem name="2" class="menuItem">用户注册</MenuItem>
             </Menu>
-            <!-- <p slot="title">
-              <span style="font-size:26px;color:#2CA987;font-weight: bold;">注册</span>
-            </p>-->
-
             <Form
               ref="formInline"
               :model="formInline"

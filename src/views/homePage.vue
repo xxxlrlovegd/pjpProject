@@ -60,7 +60,7 @@
       <i-Col :span="12">
         <div class="title">区块交易列表</div>
         <Card :bordered="false" :padding="0">
-          <Table :columns="columns" :data="data" ref="table" style="max-height: 380px"></Table>
+          <Table :columns="columns" :data="data" ref="table" height="380"></Table>
         </Card>
       </i-Col>
     </Row>
@@ -139,7 +139,7 @@ export default {
   },
   created() {
     let dataList = []
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 10; index++) {
       dataList.push({
         uploadTime: '2020-06-11',
         uniqueId: 'afdasdfasdfasfdas123123',

@@ -47,11 +47,11 @@
 </style>
   <template>
   <div class="personinfo">
-    <Layout :style="{background:'#F1F6FC'}">
+    <Layout :style="{background:'#F1F6FC',minHeight:'100vh'}">
       <Header>
         <authHeader />
       </Header>
-      <Content :style="{padding: '0 50px'}">
+      <Content :style="{padding: '0 50px',flex:1}">
         <div style="min-height: 568px;margin:20px 0px;">
           <Card style="width:700px;position: relative;top: 70px;left: 25%;">
             <div v-if="isLoginType==1">

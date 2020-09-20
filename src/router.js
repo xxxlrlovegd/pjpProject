@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Router.prototype.goBack = function goBack(backStep) {
-    this.isBack = true
-    window.history.go(backStep || -1)
-}
-//push 
+        this.isBack = true
+        window.history.go(backStep || -1)
+    }
+    //push 
 const VueRouterPush = Router.prototype.push
 Router.prototype.push = function push(to) {
     return VueRouterPush.call(this, to).catch(err => err)
@@ -87,7 +87,20 @@ export default new Router({
                     component: resolve => require(['./views/content/developerManager/developerInfo'], resolve),
                     meta: {
                         needLogin: false
-                    }
+                    },
+                    children: [{
+                        path: '/getInterface',
+                        component: resolve => require(['./views/content/developerManager/getInterface'], resolve),
+                        meta: {
+                            needLogin: true
+                        }
+                    }, {
+                        path: '/downFile',
+                        component: resolve => require(['./views/content/developerManager/downFile'], resolve),
+                        meta: {
+                            needLogin: true
+                        }
+                    }, ]
                 },
             ]
         }
