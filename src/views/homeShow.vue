@@ -3,7 +3,7 @@
 .homeShow {
   width: 100%;
   .bgStyle {
-    min-height: 100vh;
+    min-height: 180vh;
     background: url(../assets/img/homeshow.jpg) no-repeat center;
     background-size: 100% 100%;
     .nav {
