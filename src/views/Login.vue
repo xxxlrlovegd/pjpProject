@@ -123,7 +123,6 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
 import LoginService from '../service/login.service.js'
 import * as CryptoJS from 'crypto-js'
 import yz1Img from '../assets/img/login/yz1.jpg'
@@ -188,7 +187,6 @@ export default {
     },
 
     async login() {
-      alert('test')
       const res = await LoginService.login(this.formInline)
       if (res.code === 0) {
         const authorization = res.msg

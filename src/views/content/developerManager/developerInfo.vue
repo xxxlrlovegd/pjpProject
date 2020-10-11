@@ -24,7 +24,7 @@
   <div class="developerInfo">
     <Layout :style="{padding: '24px 0', margin:'0 10%', background: '#fff'}">
       <Sider hide-trigger :style="{background: '#fff'}">
-        <Menu :active-name="activeName" theme="light" width="250px" :open-names="['1']">
+        <Menu :active-name="activeName" theme="light" width="250px" :open-names="['1']"   >
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-list-box-outline" />接口文档
@@ -33,8 +33,8 @@
               v-for="(item,index) in menuItem"
               :key="index"
               :name="item.id"
-              @on-select="selectMenu(item.id)"
               :to="item.toRouter"
+              :replace="true"
             >{{item.name}}</MenuItem>
           </Submenu>
         </Menu>
@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     selectMenu(name) {
-      console.log(name)
       this.activeName = name
     },
   },

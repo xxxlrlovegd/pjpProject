@@ -25,7 +25,15 @@
 export default {
   data() {
     return {
-      username: JSON.parse(sessionStorage.getItem('UserInfo')).userName,
+      username: "",
+    }
+  },
+  mounted () {
+    console.log(sessionStorage.getItem('UserInfo'))
+    if(sessionStorage.getItem('UserInfo')){
+      this.username=JSON.parse(sessionStorage.getItem('UserInfo')).userName
+    }else{
+      this.username="游客"
     }
   },
   methods: {

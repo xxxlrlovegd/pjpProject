@@ -21,7 +21,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': { // 自定义
-                target: 'http://192.168.43.110:8081', // 这里可以跟随项目实际部署服务器来配置
+                target: 'http://localhost:8081', // 这里可以跟随项目实际部署服务器来配置
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
