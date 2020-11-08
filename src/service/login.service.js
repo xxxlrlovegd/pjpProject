@@ -6,22 +6,22 @@ let LoginService = {
   },
   //获取登录信息
   async login(params) {
-    let res = await Http.post('/api/login', params)
+    let res = await Http.post('/api/login?loginName='+params.loginName+"&password="+params.password)
     return res;
   },
   //个人注册
   async userRegister(params) {
-    let res = await Http.post('/api/userRegister', params)
+    let res = await Http.post('/api/userRegister?userName='+params.userName+"&password="+params.password+"&email="+params.email)
     return res;
   },
   //企业注册
-  async login(params) {
-    let res = await Http.post('/api/companyRegister', params)
+  async companyRegister(params) {
+    let res = await Http.post('/api/companyRegister?userName='+params.userName+"&password="+params.password+"&email="+params.email)
     return res;
   },
   //修改密码
-  async updatePassword() {
-    let res = await Http.get('/api/changePassword')
+  async updatePassword(params) {
+    let res = await Http.post('/api/changePassword?newPassWord='+params)
     return res;
   },
 }

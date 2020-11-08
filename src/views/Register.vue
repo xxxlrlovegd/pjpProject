@@ -61,8 +61,14 @@
               active-name="1"
               @on-select="selectMenu"
             >
-              <MenuItem name="1" class="menuItem">企业注册</MenuItem>
-              <MenuItem name="2" class="menuItem">用户注册</MenuItem>
+              <MenuItem
+                name="1"
+                class="menuItem"
+              >企业注册</MenuItem>
+              <MenuItem
+                name="2"
+                class="menuItem"
+              >用户注册</MenuItem>
             </Menu>
             <Form
               ref="formInline"
@@ -73,20 +79,51 @@
               :hide-required-mark="true"
               :label-colon="true"
             >
-              <FormItem label="用户名" prop="user">
-                <i-Input v-model="formInline.user" placeholder="请输入用户名"></i-Input>
+              <FormItem
+                label="用户名"
+                prop="user"
+              >
+                <i-Input
+                  v-model="formInline.user"
+                  placeholder="请输入用户名"
+                ></i-Input>
               </FormItem>
-              <FormItem label="用户密码" prop="password">
-                <i-Input type="password" v-model="formInline.password" placeholder="请输入用户密码"></i-Input>
+              <FormItem
+                label="用户密码"
+                prop="password"
+              >
+                <i-Input
+                  type="password"
+                  v-model="formInline.password"
+                  placeholder="请输入用户密码"
+                ></i-Input>
               </FormItem>
-              <FormItem label="确认密码" prop="repassword">
-                <i-Input type="password" v-model="formInline.repassword" placeholder="请输入用户密码"></i-Input>
+              <FormItem
+                label="确认密码"
+                prop="repassword"
+              >
+                <i-Input
+                  type="password"
+                  v-model="formInline.repassword"
+                  placeholder="请输入用户密码"
+                ></i-Input>
               </FormItem>
-              <FormItem label="邮箱" prop="email">
-                <i-Input v-model="formInline.email" placeholder="请输入邮箱"></i-Input>
+              <FormItem
+                label="邮箱"
+                prop="email"
+              >
+                <i-Input
+                  v-model="formInline.email"
+                  placeholder="请输入邮箱"
+                ></i-Input>
               </FormItem>
               <FormItem>
-                <Button type="primary" size="large" long @click="handleSubmit('formInline')">提交</Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  long
+                  @click="handleSubmit('formInline')"
+                >提交</Button>
               </FormItem>
             </Form>
           </Card>
@@ -97,10 +134,10 @@
   </div>
 </template>
 <script>
-// import axios from 'axios'
-import * as CryptoJS from 'crypto-js'
-import authHeader from '../views/authHeader'
-const reg = /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_!@#%^&`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\W_!@#%^&`~()-+=]+$)(?![0-9\W_!@#%^&`~()-+=]+$)[a-zA-Z0-9\W_!@#%^&`~()-+=]{8,16}$/
+import LoginService from "../service/login.service.js";
+import * as CryptoJS from "crypto-js";
+import authHeader from "../views/authHeader";
+const reg = /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_!@#%^&`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\W_!@#%^&`~()-+=]+$)(?![0-9\W_!@#%^&`~()-+=]+$)[a-zA-Z0-9\W_!@#%^&`~()-+=]{8,16}$/;
 export default {
   components: {
     authHeader,
@@ -108,90 +145,116 @@ export default {
 
   data() {
     const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('密码不能为空'))
+      if (value === "") {
+        callback(new Error("密码不能为空"));
       } else {
         if (!reg.test(value)) {
           callback(
-            new Error('长度至少8位且由大小写字母、数字、特殊字符任意三种构成')
-          )
+            new Error("长度至少8位且由大小写字母、数字、特殊字符任意三种构成")
+          );
         }
-        if (this.formInline.passwdCheck !== '') {
-          this.$refs.formInline.validateField('repassword')
+        if (this.formInline.passwdCheck !== "") {
+          this.$refs.formInline.validateField("repassword");
         }
-        callback()
+        callback();
       }
-    }
+    };
     const validateRePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('确认密码不能为空'))
+      if (value === "") {
+        callback(new Error("确认密码不能为空"));
       } else if (value !== this.formInline.password) {
-        callback(new Error('两次密码不一致'))
+        callback(new Error("两次密码不一致"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       formInline: {
-        user: '',
-        password: '',
-        repassword: '',
-        email: '',
+        user: "",
+        password: "",
+        repassword: "",
+        email: "",
         userFlag: 1,
       },
       ruleInline: {
-        user: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-        password: [{ validator: validatePass, trigger: 'blur' }],
-        repassword: [{ validator: validateRePass, trigger: 'blur' }],
+        user: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
+        repassword: [{ validator: validateRePass, trigger: "blur" }],
         email: [
           {
             required: true,
-            message: '邮箱不能为空',
-            trigger: 'blur',
+            message: "邮箱不能为空",
+            trigger: "blur",
           },
-          { type: 'email', message: '邮箱地址不正确', trigger: 'blur' },
+          { type: "email", message: "邮箱地址不正确", trigger: "blur" },
         ],
       },
       registerModal: false,
-    }
+    };
   },
   mounted() {
     this.formInline = {
-      user: '',
-      password: '',
-      repassword: '',
-      email: '',
+      user: "",
+      password: "",
+      repassword: "",
+      email: "",
       userFlag: 1,
-    }
+    };
   },
   methods: {
     // 加密方法
     encrypt(password) {
-      const key = CryptoJS.enc.Utf8.parse('10ynnr3j4wzvzsht')
-      const iv = CryptoJS.enc.Utf8.parse('vbujk8lhfmr19jb2')
+      const key = CryptoJS.enc.Utf8.parse("10ynnr3j4wzvzsht");
+      const iv = CryptoJS.enc.Utf8.parse("vbujk8lhfmr19jb2");
       const encrypted = CryptoJS.AES.encrypt(password, key, {
         iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.ZeroPadding,
-      })
-      return encrypted.toString()
+      });
+      return encrypted.toString();
     },
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          console.log('--------', this.formInline)
-          this.formInline.password = this.encrypt(this.formInline.password)
-          this.$router.push('/Login')
+          let data = {
+            userName: this.formInline.user,
+            password: this.formInline.password,
+            email: this.formInline.email,
+          };
+          this.Register(data);
         } else {
-          this.$Message.error('Fail!')
+          this.$Message.error("验证未通过!");
         }
-      })
+      });
+    },
+    async Register(param) {
+      let res
+      if (this.formInline.userFlag == 1) {
+         res = await LoginService.companyRegister(param);
+      } else {
+         res = await LoginService.userRegister(param);
+      }
+      if (res.code === 0) {
+        this.$Message.info("注册成功！");
+        this.$router.push("/Login");
+        this.formInline = {
+          user: "",
+          password: "",
+          repassword: "",
+          email: "",
+          userFlag: 1,
+        };
+      } else {
+        this.$Message.error({
+          content:res.msg,
+          duration: 10,
+          closable: true
+        })
+      }
     },
     selectMenu(name) {
-      console.log('-----', name)
-      this.formInline.userFlag = name
-      console.log('0000', this.formInline.userFlag)
+      this.formInline.userFlag = name;
     },
   },
-}
+};
 </script>

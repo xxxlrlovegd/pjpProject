@@ -38,25 +38,25 @@
       <p slot="title" class="cardTitle fontSizeBig">个人信息详情</p>
       <Form :model="formItem" :label-width="250" style="margin:0 8%;" :label-colon="true">
         <FormItem label="姓名">
-          <span>{{formItem.name}}</span>
+          <span>{{formItem.userName||'暂无'}}</span>
         </FormItem>
-        <FormItem label="年龄">
+        <!-- <FormItem label="年龄">
           <span>{{formItem.age}}</span>
-        </FormItem>
+        </FormItem> -->
         <FormItem label="身份证号">
-          <span>{{formItem.idcard}}</span>
+          <span>{{formItem.userIdNo||'暂无'}}</span>
         </FormItem>
         <FormItem label="联系电话">
-          <span>{{formItem.tel}}</span>
+          <span>{{formItem.userPhone||'暂无'}}</span>
         </FormItem>
         <FormItem label="注册时间">
-          <span>{{formItem.creatDate}}</span>
+          <span>{{formItem.createdTime||'暂无'}}</span>
         </FormItem>
         <FormItem label="现住址">
-          <span>{{formItem.addres}}</span>
+          <span>{{formItem.addres||'暂无'}}</span>
         </FormItem>
         <FormItem label="籍贯">
-          <span>{{formItem.jg}}</span>
+          <span>{{formItem.jg||'暂无'}}</span>
         </FormItem>
         <FormItem label="区块链BaaS平台API接口申请">
           <Button type="primary" @click="instance('info')" :disabled="lpFlag">令牌申请</Button>
@@ -75,17 +75,18 @@
   </div>
 </template>
 <script>
+import APIservice from '../../../service/stock.service.js'
 export default {
   data() {
     return {
       formItem: {
-        name: '张三',
-        age: '26',
-        idcard: '230222111109219921',
-        tel: '12345678901',
-        creatDate: '2020-9-15 10:23:27',
-        addres: '北京西城区xxxx',
-        jg: '北京市',
+        userName: '',
+        age: '',
+        userIdNo: '',
+        userPhone: '',
+        createdTime: '',
+        addres: '',
+        jg: '',
         lp: '',
         lpkey: '',
       },
@@ -94,9 +95,28 @@ export default {
   },
   mounted() {
     this.lpFlag = this.formItem.lp ? true : false
+    this.selectAuthInfo()
   },
   methods: {
+    //个人信息查询
+    async selectAuthInfo(){
+      const res = await APIservice.selectAuthInfo()
+        if (res.code === 0) {
+          console.log('自定义数据', res.data)
+          this.formItem=res.data
+        } else {
+          this.$Message.error(res.msg)
+        }
+    },
+    //令牌申请接口
+    async getSecretKey(){
+      const res = await APIservice.getSecretKey()
+        if (res.code === 0) {}else{
+          
+        }
+    },
     instance(type) {
+      this.getSecretKey()
       if (type == 'info') {
         this.$Modal.info({
           title: '令牌申请',

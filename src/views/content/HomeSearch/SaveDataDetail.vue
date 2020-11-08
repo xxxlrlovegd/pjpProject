@@ -193,18 +193,20 @@ export default {
   mounted() {
     console.log('------', Object.keys(this.czData).length === 0)
     this.flag = Object.keys(this.czData).length === 0
+    this.getListData()
   },
   methods: {
     async getListData() {
       if (this.$route.query.model == '交易hash') {
-        let res = await APIservice.getBlockByNumber(this.qkData)
+        let res = await APIservice.getBlockByNumber(this.$route.query.number)
         console.log(res)
         if (res.msg === 0) {
           console.log(res.data)
         } else {
-          this.$message.error(res.msg)
+          this.$Message.error(res.msg)
         }
       } else {
+        this.czData=[]
         console.log('这是区块高度数据管理，嘎嘎嘎~')
       }
     },

@@ -156,7 +156,7 @@ export default {
           {
             type: 'string',
             min: 6,
-            message: 'The password length cannot be less than 6 bits',
+            message: '密码长度不可小于6位',
             trigger: 'blur',
           },
         ],
@@ -193,12 +193,11 @@ export default {
         sessionStorage.setItem('Authorization', authorization)
         sessionStorage.setItem('userInfo', JSON.stringify(res.data))
         // 增加跳转页面逻辑判断
-        if (res.data.user_status != 2) {
+        if (res.data.userStatus !='2') {
           //调用后台返回一个值
-          if (res.data.userName || res.data.companyName) {
+          if (res.data.userName || res.data.companyName ||res.data.userStatus =='1') {
             this.$router.push('/homePage')
           } else {
-            console.log('-------')
             this.$router.push('/personInfo/' + res.data.userType)
           }
         } else {
@@ -207,7 +206,7 @@ export default {
             title: '温馨提示',
             content: '您的账号未通过认证',
             onOk: () => {
-              this.$router.push('/login')
+              this.$router.push('/Login')
             },
           })
         }
@@ -216,7 +215,12 @@ export default {
           loginName: '',
           password: '',
         }
-        this.$message.error(res.msg)
+        this.$Message.error({
+          content:res.msg,
+          duration: 10,
+          closable: true
+        })
+        this.onAgain()
       }
     },
     handleSubmit(name) {

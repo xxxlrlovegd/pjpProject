@@ -74,7 +74,7 @@
         </div>
       </i-Col>
       <i-Col span="7" style="text-align:right">
-        <Select v-model="model" style="width: 96px;margin-right:2px" @on-change="qkSelectEvent">
+        <!-- <Select v-model="model" style="width: 96px;margin-right:2px" @on-change="qkSelectEvent">
           <Option v-for="item in selectList" :value="item.name" :key="item.id">{{ item.name }}</Option>
         </Select>
         <Input
@@ -85,7 +85,7 @@
           v-model="qkData"
           @on-enter="seachEvent"
           @on-click="seachEvent"
-        />
+        /> -->
       </i-Col>
     </Row>
   </div>

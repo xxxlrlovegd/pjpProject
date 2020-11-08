@@ -25,7 +25,9 @@
         <span style="margin-left:8px;font-style: italic;color:#32C098;font-size:20px;">0451-86292460</span>
       </i-Col>
       <i-Col span="4" class="personStyle">
-        <Information />
+        <div>
+        <Information/>
+        </div>
       </i-Col>
     </Row>
     <Header>

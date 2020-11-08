@@ -15,7 +15,7 @@
         {{username}}
       </a>
       <DropdownMenu slot="list">
-        <DropdownItem name="grxx">个人信息</DropdownItem>
+        <DropdownItem name="grxx" v-show="username!='游客'">个人信息</DropdownItem>
         <DropdownItem name="tc">退出</DropdownItem>
       </DropdownMenu>
     </Dropdown>
@@ -26,26 +26,28 @@ export default {
   data() {
     return {
       username: "",
-    }
+    };
   },
-  mounted () {
-    console.log(sessionStorage.getItem('UserInfo'))
-    if(sessionStorage.getItem('UserInfo')){
-      this.username=JSON.parse(sessionStorage.getItem('UserInfo')).userName
-    }else{
-      this.username="游客"
+  mounted() {
+    console.log(sessionStorage.getItem("UserInfo"));
+    if (sessionStorage.getItem("UserInfo")) {
+      this.username = JSON.parse(sessionStorage.getItem("UserInfo")).userName;
+    } else {
+      this.username = "游客";
     }
   },
   methods: {
     downMenuEvent(name) {
-      console.log(name)
-      if (name == 'grxx') {
-        this.$router.push('/information')
-      }else{
+      console.log(name);
+      if (name == "grxx") {
+        this.$router.push("/information");
+      } else {
+        sessionStorage.removeItem("Authorization");
+        sessionStorage.removeItem("UserInfo");
         sessionStorage.clear();
-        window.location.href='/'
+        window.location.href = "/";
       }
     },
   },
-}
+};
 </script>
