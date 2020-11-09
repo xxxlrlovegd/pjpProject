@@ -54,7 +54,7 @@
       <Content :style="{padding: '0 50px',flex:1}">
         <div style="min-height: 568px;margin:20px 0px;">
           <Card style="width:700px;position: relative;top: 70px;left: 25%;">
-            <div v-if="isLoginType==1">
+            <div v-show="isLoginType==1">
               <Form
                 ref="formInline"
                 :model="formInline"
@@ -123,7 +123,7 @@
                 </FormItem>
               </Form>
             </div>
-            <div v-else>
+            <div v-show="isLoginType!=1">
               <Form
                 ref="formShInline"
                 :model="formShInline"
@@ -213,6 +213,7 @@
                   prop="registeredCapital"
                 >
                   <i-Input
+                    type='number'
                     v-model="formShInline.registeredCapital"
                     placeholder="请输入注册资金"
                   ></i-Input>
@@ -221,10 +222,16 @@
                   label="注册时间"
                   prop="registrationDate"
                 >
-                  <i-Input
+                  <DatePicker
+                    type="date"
+                    v-model="formShInline.registrationDate"
+                    style="width:100%"
+                    placeholder="请输入注册时间"
+                  ></DatePicker>
+                  <!-- <i-Input
                     v-model="formShInline.registrationDate"
                     placeholder="请输入注册时间"
-                  ></i-Input>
+                  ></i-Input> -->
                 </FormItem>
                 <FormItem
                   label="信用代码"
@@ -274,6 +281,7 @@
 <script>
 import APIservice from "../../../service/stock.service.js";
 import authHeader from "../../../views/authHeader";
+Date.prototype.format = function(format) { var o = { "M+": this.getMonth() + 1, "d+": this.getDate(), "h+": this.getHours(), "m+": this.getMinutes(), "s+": this.getSeconds(), "q+": Math.floor((this.getMonth() + 3) / 3), "S": this.getMilliseconds() }; if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)) } for (var k in o) { if (new RegExp("(" + k + ")").test(format)) { format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)) } } return format };
 
 //身份证验证
 const isIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
@@ -341,7 +349,7 @@ export default {
         businessLicensePhoto: "",
       },
       ruleShInline: {
-         companyName: [
+        companyName: [
           { required: true, message: "商家名称不能为空", trigger: "blur" },
         ],
         userName: [
@@ -358,7 +366,7 @@ export default {
       qygmSelect: [
         {
           name: "微型企业(人数<50)",
-          value:1,
+          value: 1,
         },
         {
           name: "小型企业 (50<人数<500)",
@@ -400,8 +408,6 @@ export default {
       businessAddress: "",
       businessLicensePhoto: "",
     };
-  },
-  mouted() {
     this.$nextTick(() => {
       this.handleReset("formInline");
       this.handleReset("formShInline");
@@ -420,7 +426,11 @@ export default {
     handleShSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.companyAuthentication(this.formInline);
+           this.formShInline.registrationDate = this.timeStampChange(this.formShInline.registrationDate, 'date')
+          this.formShInline.companyNature = parseInt(
+            this.formShInline.companyNature
+          );
+          this.companyAuthentication(this.formShInline);
         } else {
           this.$Message.error("Fail!");
         }
@@ -436,7 +446,7 @@ export default {
     },
     qyfjUpload(file) {
       this.formInline.businessLicensePhoto = file;
-      console.log( this.formInline.businessLicensePhoto);
+      console.log(this.formInline.businessLicensePhoto);
       return false;
     },
     //用户认证信息上传接口
@@ -457,7 +467,7 @@ export default {
     //企业认证信息上传接口
     async companyAuthentication(param) {
       const res = await APIservice.companyAuthentication(param);
-      let _this=this
+      let _this = this;
       if (res.code === 0) {
         _this.$Modal.info({
           title: "温馨提示",
@@ -468,6 +478,20 @@ export default {
         });
       } else {
         _this.$Message.error(res.msg);
+      }
+    },
+    // 时间转换
+    timeStampChange(param, type) {
+      if (typeof param == "object") {
+        if (type == "date") {
+          return param.format("yyyy-MM-dd");
+        } else if (type == "datetime") {
+          return param.format("yyyy-MM-dd hh:mm");
+        } else if (type == "datetimes") {
+          return param.format("yyyy-MM-dd hh:mm:ss");
+        }
+      } else {
+        return param;
       }
     },
   },
