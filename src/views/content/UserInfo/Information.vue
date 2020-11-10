@@ -94,7 +94,8 @@ export default {
     }
   },
   mounted() {
-    this.lpFlag = this.formItem.lp ? true : false
+    //此处逻辑有点问题，我只要点击了后台返回值之后就不应该在进行点击！
+    // this.lpFlag = this.formItem.lp ? true : false
     this.selectAuthInfo()
   },
   methods: {
@@ -111,21 +112,23 @@ export default {
     //令牌申请接口
     async getSecretKey(){
       const res = await APIservice.getSecretKey()
-        if (res.code === 0) {}else{
-          
+        if (res.code === 0) {
+         var arr= res.msg.split(",")
+         this.formItem.lp= arr[1]
+         this.formItem.lpkey= arr[0]
+         this.$forceUpdate()
+        }else{
+            this.$Message.error(res.msg);
         }
     },
     instance(type) {
-      this.getSecretKey()
       if (type == 'info') {
         this.$Modal.info({
           title: '令牌申请',
           content: '是否进行令牌申请',
           onOk: () => {
             //令牌请求
-            console.log('这是令牌请求~')
-            this.formItem.lp = '123456789'
-            this.formItem.lpkey = 'fdsfsaffds3242fds'
+            this.getSecretKey()
             this.lpFlag = true
           },
         })

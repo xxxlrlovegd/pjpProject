@@ -14,7 +14,7 @@ Vue.use(ViewUI);
 Vue.use(SlideVerify);
 
 router.beforeEach((to, from, next) => {
-    if (sessionStorage.getItem('Authorization')&&JSON.parse(sessionStorage.getItem("userInfo")).userStatus=='2') {
+    if (sessionStorage.getItem('Authorization')&&JSON.parse(sessionStorage.getItem("userInfo")).userStatus=='1') {
         if (to.path === '/login' || to.path === '/register') {
             // 登录状态下 访问login.vue页面 会跳到index.vue
             next({

@@ -103,7 +103,7 @@
                     placeholder="请输入"
                   ></i-Input>
                 </FormItem>
-                <FormItem label="证件图片">
+                <!-- <FormItem label="证件图片">
                   <Upload
                     :before-upload="fjUpload"
                     action="http"
@@ -112,7 +112,7 @@
                   >
                     <Button type="primary">点击上传图片</Button>
                   </Upload>
-                </FormItem>
+                </FormItem> -->
                 <FormItem>
                   <Button
                     type="primary"
@@ -251,7 +251,7 @@
                     placeholder="请输入办公地址"
                   ></i-Input>
                 </FormItem>
-                <FormItem label="营业执照">
+                <!-- <FormItem label="营业执照">
                   <Upload
                     :before-upload="qyfjUpload"
                     action="http"
@@ -260,7 +260,7 @@
                   >
                     <Button type="primary">点击上传图片</Button>
                   </Upload>
-                </FormItem>
+                </FormItem> -->
                 <FormItem>
                   <Button
                     type="primary"

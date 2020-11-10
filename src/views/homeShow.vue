@@ -52,7 +52,7 @@
       <div class="nav">
         <router-link to="/developer" class="linkStyle">接口文档</router-link>
         <a href="#" class="linkStyle"></a>
-        <router-link to="/" class="linkStyle">农产品系统</router-link>
+        <a  target="_blank"  href="https://ggsypt.56saas.com.cn/apts_web/login" class="linkStyle">农产品系统</a>
         <a href="#" class="linkStyle"></a>
         <Button type="primary" to="/login" class="btStyle" size="large">登录</Button>
         <Button type="default" to="/register" class="btStyle" size="large" :ghost="true">注册</Button>

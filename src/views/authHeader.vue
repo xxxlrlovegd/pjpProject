@@ -44,12 +44,11 @@
         </Row>
       </i-Col>
       <i-Col span="10">
-        <Menu mode="horizontal" theme="light" :active-name="activeName">
+        <Menu mode="horizontal" theme="light" :active-name="activeName"  @on-select="selectMenu">
           <MenuItem
             v-for="(item,index) in menuItem"
             :key="index"
             :name="item.id"
-            @on-select="selectMenu(item.id)"
             :to="item.path"
           >{{item.name}}</MenuItem>
         </Menu>
@@ -69,7 +68,7 @@ export default {
       menuItem: [
         { id: 1, name: '首页', path: '/' },
         { id: 3, name: '接口文档', path: '/developer' },
-        { id: 4, name: '农产品系统', path: '/' },
+        { id: 4, name: '农产品系统'},
       ],
     }
   },
@@ -77,6 +76,11 @@ export default {
   methods: {
     selectMenu(name) {
       this.activeName = name
+      console.log("name",name)
+      if(name==4){
+        var tempwindow=window.open('_blank')
+        tempwindow.location= 'https://ggsypt.56saas.com.cn/apts_web/login'; 
+      }
     },
   },
 }

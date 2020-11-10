@@ -286,9 +286,9 @@ export default {
   height: 350px;
   widows: 200px;
 }
-.table {
+/* .table {
   height: calc(100vh – 220px);
-}
+} */
 .pagination {
   text-align: center;
   padding: 15px 0;

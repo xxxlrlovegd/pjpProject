@@ -29,9 +29,9 @@ export default {
     };
   },
   mounted() {
-    console.log(sessionStorage.getItem("UserInfo"));
-    if (sessionStorage.getItem("UserInfo")) {
-      this.username = JSON.parse(sessionStorage.getItem("UserInfo")).userName;
+    console.log(sessionStorage.getItem("userInfo"));
+    if (sessionStorage.getItem("userInfo")) {
+      this.username = JSON.parse(sessionStorage.getItem("userInfo")).userName;
     } else {
       this.username = "游客";
     }
