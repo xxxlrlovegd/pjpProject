@@ -20,11 +20,11 @@ module.exports = {
     },
     devServer: {
         proxy: {
-            '/api': { // 自定义
+            '/tracebaas_system': { // 自定义
                 target: 'http://211.156.195.235/tracebaas_system/', // 这里可以跟随项目实际部署服务器来配置
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/tracebaas_system': ''
                 }
             },
         }
