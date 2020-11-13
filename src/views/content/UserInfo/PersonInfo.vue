@@ -60,8 +60,8 @@
                 :model="formInline"
                 :rules="ruleInline"
                 class="formStyle"
-                :label-width="80"
-                :hide-required-mark="true"
+                :label-width="90"
+                :hide-required-mark="false"
                 :label-colon="true"
                 style="margin-top:6%"
               >
@@ -129,8 +129,8 @@
                 :model="formShInline"
                 :rules="ruleShInline"
                 class="formShStyle"
-                :label-width="80"
-                :hide-required-mark="true"
+                :label-width="90"
+                :hide-required-mark="false"
                 :label-colon="true"
                 style="margin-top:6%"
               >
@@ -359,9 +359,9 @@ export default {
           { required: true, message: "联系电话不能为空", trigger: "blur" },
           { validator: validatePhone, trigger: "blur" },
         ],
-        creditCode: [
-          { required: true, message: "信用代码不能为空", trigger: "blur" },
-        ],
+        // creditCode: [
+        //   { required: true, message: "信用代码不能为空", trigger: "blur" },
+        // ],
       },
       qygmSelect: [
         {
