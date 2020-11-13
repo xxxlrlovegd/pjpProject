@@ -50,7 +50,7 @@
   <div class="homeShow">
     <div class="bgStyle">
       <div class="nav">
-        <router-link to="/developer" class="linkStyle">接口文档</router-link>
+        <router-link to="/developer" class="linkStyle">在线帮助</router-link>
         <a href="#" class="linkStyle"></a>
         <a  target="_blank"  href="https://ggsypt.56saas.com.cn/apts_web/login" class="linkStyle">农产品系统</a>
         <a href="#" class="linkStyle"></a>

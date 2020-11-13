@@ -139,7 +139,7 @@ export default {
       menuItem: [
         { id: 1, name: '首页' },
         { id: 2, name: '联盟管理' },
-        { id: 3, name: '接口文档' },
+        { id: 3, name: '在线帮助' },
         { id: 4, name: '农产品系统' },
         { id: 5, name: '高考录取通知书系统' },
       ],

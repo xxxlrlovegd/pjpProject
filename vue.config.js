@@ -3,7 +3,7 @@ const path = require('path')
 const resolve = file => path.resolve(__dirname, file)
 
 module.exports = {
-    // publicPath: '/', // 根路径
+    publicPath: '', // 根路径
     // outputDir: 'dist', // 构建输出目录
     productionSourceMap: false, // 打包时不生成.map文件
     lintOnSave: false, // 是否开启eslint保存检测,有效值（true||false||error)

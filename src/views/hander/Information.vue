@@ -45,7 +45,7 @@ export default {
         sessionStorage.removeItem("Authorization");
         sessionStorage.removeItem("UserInfo");
         sessionStorage.clear();
-        window.location.href = "/";
+        window.location.href = "/index";
       }
     },
   },

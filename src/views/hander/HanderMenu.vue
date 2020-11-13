@@ -116,7 +116,7 @@ export default {
       model: "交易hash",
       menuItem: [
         { id: 1, name: "首页", path: "/homePage" },
-        { id: 3, name: "接口文档", path: "/getInterface?type=wybsm" },
+        { id: 3, name: "在线帮助", path: "/getInterface?type=wybsm" },
         { id: 4, name: "农产品系统", path: "" },
       ],
       selectList: [

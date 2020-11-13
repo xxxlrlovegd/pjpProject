@@ -27,7 +27,7 @@
         <Menu :active-name="activeName" theme="light" width="250px" :open-names="['1']"   >
           <Submenu name="1">
             <template slot="title">
-              <Icon type="ios-list-box-outline" />接口文档
+              <Icon type="ios-list-box-outline" />在线帮助
             </template>
             <MenuItem
               v-for="(item,index) in menuItem"
@@ -88,7 +88,7 @@ export default {
           name: '唯一标识码信息批量查询接口',
           toRouter: { path: '/getInterface', query: { type: 'plwybsxxm' } },
         },
-        { id: 8, name: '下载文件', toRouter: '/downFile' },
+        { id: 8, name: 'SDK下载', toRouter: '/downFile' },
       ],
     }
   },

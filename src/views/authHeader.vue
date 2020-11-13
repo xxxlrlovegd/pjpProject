@@ -66,8 +66,8 @@ export default {
     return {
       activeName: 0,
       menuItem: [
-        { id: 1, name: '首页', path: '/' },
-        { id: 3, name: '接口文档', path: '/developer' },
+        { id: 1, name: '首页', path: '/index' },
+        { id: 3, name: '在线帮助', path: '/developer' },
         { id: 4, name: '农产品系统'},
       ],
     }

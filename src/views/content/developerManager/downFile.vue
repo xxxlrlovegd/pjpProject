@@ -5,9 +5,9 @@
 export default {
     data () {
         return {
-             downUrl :"../tpls/接口文档.pdf",
-      downNm :"接口文档.pdf",
-      downTplNm:"接口文档",
+            downUrl :"./tpls/接口文档SDK.zip",
+            downNm :"接口文档SDK",
+            downTplNm:"SDK",
         }
     }
 }

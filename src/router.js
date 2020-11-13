@@ -20,7 +20,7 @@ Vue.use(Router)
 export default new Router({
     mode: 'hash',
     routes: [{
-            path: '/',
+            path: '/index',
             component: resolve => require(['./views/homeShow'], resolve),
             meta: {
                 needLogin: false
