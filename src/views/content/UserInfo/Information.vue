@@ -35,8 +35,16 @@
 <template>
   <div class="information">
     <Card style="width:50%;margin:2% 26%">
-      <p slot="title" class="cardTitle fontSizeBig">个人信息详情</p>
-      <Form :model="formItem" :label-width="250" style="margin:0 8%;" :label-colon="true">
+      <p
+        slot="title"
+        class="cardTitle fontSizeBig"
+      >个人信息详情</p>
+      <Form
+        :model="formItem"
+        :label-width="250"
+        style="margin:0 8%;"
+        :label-colon="true"
+      >
         <FormItem label="姓名">
           <span>{{formItem.userName||'暂无'}}</span>
         </FormItem>
@@ -59,13 +67,17 @@
           <span>{{formItem.jg||'暂无'}}</span>
         </FormItem>
         <FormItem label="区块链BaaS平台API接口申请">
-          <Button type="primary" @click="instance('info')" :disabled="lpFlag">令牌申请</Button>
+          <Button
+            type="primary"
+            @click="instance('info')"
+            :disabled="lpFlag"
+          >令牌申请</Button>
         </FormItem>
         <FormItem label="令牌">
-          <span>{{formItem.lp}}</span>
+          <span>{{formItem.credential}}</span>
         </FormItem>
         <FormItem label="key">
-          <span>{{formItem.lpkey}}</span>
+          <span>{{formItem.secretkey}}</span>
         </FormItem>
       </Form>
       <div class="dlmmStyle">
@@ -75,67 +87,72 @@
   </div>
 </template>
 <script>
-import APIservice from '../../../service/stock.service.js'
+import APIservice from "../../../service/stock.service.js";
 export default {
   data() {
     return {
       formItem: {
-        userName: '',
-        age: '',
-        userIdNo: '',
-        userPhone: '',
-        createdTime: '',
-        addres: '',
-        jg: '',
-        lp: '',
-        lpkey: '',
+        userName: "",
+        age: "",
+        userIdNo: "",
+        userPhone: "",
+        createdTime: "",
+        addres: "",
+        jg: "",
+        credential: "",
+        secretkey: "",
       },
       lpFlag: false,
-    }
+    };
   },
   mounted() {
     //此处逻辑有点问题，我只要点击了后台返回值之后就不应该在进行点击！
-    // this.lpFlag = this.formItem.lp ? true : false
-    this.selectAuthInfo()
+    // this.lpFlag = this.formItem.credential  ? true : false
+    this.selectAuthInfo();
   },
   methods: {
     //个人信息查询
-    async selectAuthInfo(){
-      const res = await APIservice.selectAuthInfo()
-        if (res.code === 0) {
-          console.log('自定义数据', res.data)
-          this.formItem=res.data
+    async selectAuthInfo() {
+      const res = await APIservice.selectAuthInfo();
+      if (res.code === 0) {
+        console.log("自定义数据", res.data);
+        this.formItem = res.data;
+        if (this.formItem.credential && this.formItem.secretkey) {
+          this.lpFlag = true;
         } else {
-          this.$Message.error(res.msg)
+          this.lpFlag = false;
         }
+      } else {
+        this.$Message.error(res.msg);
+      }
     },
     //令牌申请接口
-    async getSecretKey(){
-      const res = await APIservice.getSecretKey()
-        if (res.code === 0) {
-         var arr= res.msg.split(",")
-         this.formItem.lp= arr[1]
-         this.formItem.lpkey= arr[0]
-         this.$forceUpdate()
-        }else{
-            this.$Message.error(res.msg);
-        }
+    async getSecretKey() {
+      const res = await APIservice.getSecretKey();
+      if (res.code === 0) {
+        var arr = res.msg.split(",");
+        this.formItem.credential = arr[1];
+        this.formItem.secretkey = arr[0];
+        this.$forceUpdate();
+      } else {
+        this.$Message.error(res.msg);
+      }
     },
     instance(type) {
-      if (type == 'info') {
+      if (type == "info") {
         this.$Modal.info({
-          title: '令牌申请',
-          content: '是否进行令牌申请',
+          title: "令牌申请",
+          content: "是否进行令牌申请",
           onOk: () => {
             //令牌请求
-            this.getSecretKey()
-            this.lpFlag = true
+            this.getSecretKey();
+            this.lpFlag = true;
           },
-        })
+        });
       } else {
-        return
+        return;
       }
     },
   },
-}
+};
 </script>
