@@ -220,18 +220,14 @@
                 </FormItem>
                 <FormItem
                   label="注册时间"
-                  prop="registrationDate"
+                  prop="companyCreateDate"
                 >
                   <DatePicker
                     type="date"
-                    v-model="formShInline.registrationDate"
+                    v-model="formShInline.companyCreateDate"
                     style="width:100%"
                     placeholder="请输入注册时间"
                   ></DatePicker>
-                  <!-- <i-Input
-                    v-model="formShInline.registrationDate"
-                    placeholder="请输入注册时间"
-                  ></i-Input> -->
                 </FormItem>
                 <FormItem
                   label="信用代码"
@@ -281,7 +277,32 @@
 <script>
 import APIservice from "../../../service/stock.service.js";
 import authHeader from "../../../views/authHeader";
-Date.prototype.format = function(format) { var o = { "M+": this.getMonth() + 1, "d+": this.getDate(), "h+": this.getHours(), "m+": this.getMinutes(), "s+": this.getSeconds(), "q+": Math.floor((this.getMonth() + 3) / 3), "S": this.getMilliseconds() }; if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)) } for (var k in o) { if (new RegExp("(" + k + ")").test(format)) { format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)) } } return format };
+Date.prototype.format = function (format) {
+  var o = {
+    "M+": this.getMonth() + 1,
+    "d+": this.getDate(),
+    "h+": this.getHours(),
+    "m+": this.getMinutes(),
+    "s+": this.getSeconds(),
+    "q+": Math.floor((this.getMonth() + 3) / 3),
+    S: this.getMilliseconds(),
+  };
+  if (/(y+)/.test(format)) {
+    format = format.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  }
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(format)) {
+      format = format.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+    }
+  }
+  return format;
+};
 
 //身份证验证
 const isIdCard = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
@@ -343,7 +364,7 @@ export default {
         enterpriseSize: "",
         corporate: "",
         registeredCapital: "",
-        registrationDate: "",
+        companyCreateDate: "",
         creditCode: "",
         businessAddress: "",
         businessLicensePhoto: "",
@@ -403,7 +424,7 @@ export default {
       enterpriseSize: "",
       corporate: "",
       registeredCapital: "",
-      registrationDate: "",
+      companyCreateDate: "",
       creditCode: "",
       businessAddress: "",
       businessLicensePhoto: "",
@@ -426,7 +447,10 @@ export default {
     handleShSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-           this.formShInline.registrationDate = this.timeStampChange(this.formShInline.registrationDate, 'date')
+          this.formShInline.companyCreateDate = this.timeStampChange(
+            this.formShInline.companyCreateDate,
+            "date"
+          );
           this.formShInline.companyNature = parseInt(
             this.formShInline.companyNature
           );
