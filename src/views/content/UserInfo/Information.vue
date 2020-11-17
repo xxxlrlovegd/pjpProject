@@ -81,7 +81,7 @@
         </FormItem>
       </Form>
       <div class="dlmmStyle">
-        <a @click="toRestPassword" >重置登录密码</a>
+        <a @click="toRestPassword">重置登录密码</a>
       </div>
     </Card>
   </div>
@@ -154,9 +154,9 @@ export default {
       }
     },
     //跳转到重置密码页面
-    toRestPassword(){
-  this.$router.push("/resetPassword");
-    }
+    toRestPassword() {
+      this.$router.push("/resetPassword");
+    },
   },
 };
 </script>

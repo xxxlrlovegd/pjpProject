@@ -193,6 +193,15 @@ export default {
             data: this.echartData.yData,
           },
         ],
+           tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'line',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        }
       };
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
